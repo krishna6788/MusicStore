@@ -1,23 +1,20 @@
 pipeline {
-    agent { label 'dotnet6' }
-    triggers { pollSCM('* * * * *') }
+    agent { label 'Linux'}
     stages {
-        stage('vcs') {
+        stage('Version Control System'){
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/khajadevopsmarch23/MusicStore.git'
+                git url:'https://github.com/krishna6788/nopCommerce.git',
+                    branch: 'Declarative'
+
             }
         }
-        stage('build') {
+        stage ('Build') {
             steps {
-                sh 'dotnet restore ./MusicStore/MusicStore.csproj && dotnet build ./MusicStore/MusicStore.csproj'
+                sh 'dotnet restore src/NopCommerce.sln'
+                sh 'dotnet build src/NopCommerce.sln'
+
             }
         }
-        stage('test') {
-            steps {
-                sh 'dotnet test --logger "junit;LogFilePath=TEST-musicstoretest.xml" ./MusicStoreTest/MusicStoreTest.csproj'
-                junit testResults: '**/TEST-*.xml'
-            }
-        }
+        
     }
 }
