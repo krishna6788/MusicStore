@@ -13,5 +13,12 @@ pipeline {
                 sh 'dotnet restore ./MusicStore/MusicStore.csproj && dotnet restore ./MusicStore/MusicStore.csproj'
             }
         }
+        stage ('Post Build') {
+            steps {
+                sh 'dotnet test --logger "junit;LogFilePath=TEXT-musicstore.text.xml" ./MusicStore/MusicStore.csproj'
+                junit testResults: '**/TEXT-*.xml'
+'
+            }
+        }
     }
 }
