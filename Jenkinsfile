@@ -3,18 +3,15 @@ pipeline {
     stages {
         stage('Version Control System'){
             steps {
-                git url:'https://github.com/krishna6788/nopCommerce.git',
+                git url:'https://github.com/krishna6788/MusicStore.git',
                     branch: 'Declarative'
 
             }
         }
         stage ('Build') {
             steps {
-                sh 'dotnet restore src/NopCommerce.sln'
-                sh 'dotnet build src/NopCommerce.sln'
-
+                sh 'dotnet restore ./MusicStore/MusicStore.csproj && dotnet restore ./MusicStore/MusicStore.csproj'
             }
         }
-        
     }
 }
